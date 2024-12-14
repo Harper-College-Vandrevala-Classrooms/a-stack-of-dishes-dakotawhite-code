@@ -8,42 +8,44 @@ class Dish {
     }
 }
 
-class DishStack {
-    private Dish[] stack;
+class Stack<T> {
+    private Object[] stack;  // Using Object[] as the internal array
     private int top;
     private int maxSize;
 
-    public DishStack(int maxSize) {
+    public Stack(int maxSize) {
         this.maxSize = maxSize;
-        this.stack = new Dish[maxSize];
+        this.stack = new Object[maxSize];  // Create a generic array using Object
         this.top = -1;
     }
 
-    public void push(Dish dish) {
+    public void push(T item) {
         if (top == maxSize - 1) {
-            System.out.println("Stack is full! Cannot push the dish.");
+            System.out.println("Stack is full! Cannot push the item.");
         } else {
-            stack[++top] = dish;
+            stack[++top] = item;  // Add the item at the top position
         }
     }
 
-    public Dish pop() {
+    @SuppressWarnings("unchecked")
+    public T pop() {
         if (top == -1) {
-            System.out.println("Stack is empty! Cannot pop a dish.");
+            System.out.println("Stack is empty! Cannot pop an item.");
             return null;
         } else {
-            Dish poppedDish = stack[top];
+            T poppedItem = (T) stack[top];  // Cast the Object back to the generic type
             stack[top--] = null;
-            return poppedDish;
+            return poppedItem;
         }
     }
 
-    public Dish peek() {
+    @SuppressWarnings("unchecked")
+    public T peek() {
         if (top == -1) {
             System.out.println("Stack is empty! Cannot peek.");
             return null;
         } else {
-            return stack[top];
+            return (T) stack[top];  // Cast the Object to the generic type
         }
     }
 
@@ -52,7 +54,7 @@ class DishStack {
     }
 
     public static void main(String[] args) {
-        DishStack stack = new DishStack(3);
+        Stack<Dish> stack = new Stack<>(3);
 
         Dish oneDish = new Dish("A dish with one fish pattern on it");
         Dish twoDish = new Dish("A dish with two fish patterns on it");
@@ -64,7 +66,7 @@ class DishStack {
         stack.push(oneDish);
         stack.push(twoDish);
         stack.push(redDish);
-        stack.push(blueDish); 
+        stack.push(blueDish);  // This will trigger a "Stack is full" message
 
         System.out.println("Stack size after pushes: " + stack.size());
         Dish peekedDish = stack.peek();
