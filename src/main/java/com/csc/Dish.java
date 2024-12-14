@@ -9,13 +9,13 @@ class Dish {
 }
 
 class Stack<T> {
-    private Object[] stack;  // Using Object[] as the internal array
+    private Object[] stack;
     private int top;
     private int maxSize;
 
     public Stack(int maxSize) {
         this.maxSize = maxSize;
-        this.stack = new Object[maxSize];  // Create a generic array using Object
+        this.stack = new Object[maxSize];
         this.top = -1;
     }
 
@@ -23,7 +23,7 @@ class Stack<T> {
         if (top == maxSize - 1) {
             System.out.println("Stack is full! Cannot push the item.");
         } else {
-            stack[++top] = item;  // Add the item at the top position
+            stack[++top] = item;
         }
     }
 
@@ -33,7 +33,7 @@ class Stack<T> {
             System.out.println("Stack is empty! Cannot pop an item.");
             return null;
         } else {
-            T poppedItem = (T) stack[top];  // Cast the Object back to the generic type
+            T poppedItem = (T) stack[top];
             stack[top--] = null;
             return poppedItem;
         }
@@ -45,13 +45,20 @@ class Stack<T> {
             System.out.println("Stack is empty! Cannot peek.");
             return null;
         } else {
-            return (T) stack[top];  // Cast the Object to the generic type
+            return (T) stack[top];
         }
     }
 
     public int size() {
         return top + 1;
     }
+public void clear() {
+    for (int i = 0; i <= top; i++) {
+        stack[i] = null;
+    }
+    top = -1;
+}
+
 
     public static void main(String[] args) {
         Stack<Dish> stack = new Stack<>(3);
@@ -62,11 +69,21 @@ class Stack<T> {
         Dish blueDish = new Dish("A dish with a blue fish pattern on it");
 
         System.out.println("Stack size before any push: " + stack.size());
+        Dish dishOne = new Dish("Dish 1");
+        Dish dishTwo = new Dish("Dish 2");
+        
+        stack.push(dishOne);
+        stack.push(dishTwo);
+        int stackSize = stack.size();
+        System.out.println("Stack size after pushes: " + stack.size());
+        stack.clear();
+        int finalSize = stack.size();
+        System.out.println("Stack size after clearing: " + stack.size());
 
         stack.push(oneDish);
         stack.push(twoDish);
         stack.push(redDish);
-        stack.push(blueDish);  // This will trigger a "Stack is full" message
+        stack.push(blueDish);
 
         System.out.println("Stack size after pushes: " + stack.size());
         Dish peekedDish = stack.peek();
@@ -79,5 +96,7 @@ class Stack<T> {
         System.out.println("Another popped dish: " + (anotherPoppedDish != null ? anotherPoppedDish.description : "null"));
 
         System.out.println("Final stack size: " + stack.size());
+        
+        
     }
 }

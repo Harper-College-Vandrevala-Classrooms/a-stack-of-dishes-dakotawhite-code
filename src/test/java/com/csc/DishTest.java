@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class DishTest {
 
-    private Stack<Dish> stack; // Test for Dish objects
+    private Stack<Dish> stack;
     private Dish oneDish;
     private Dish twoDish;
     private Dish redDish;
@@ -16,7 +16,7 @@ public class DishTest {
 
     @BeforeEach
     public void setUp() {
-        stack = new Stack<>(3);  // Test the stack with a size limit of 3
+        stack = new Stack<>(3);
         oneDish = new Dish("A dish with one fish pattern on it");
         twoDish = new Dish("A dish with two fish patterns on it");
         redDish = new Dish("A dish with a red fish pattern on it");
